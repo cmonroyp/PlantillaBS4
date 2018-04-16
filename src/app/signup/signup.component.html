@@ -1,28 +1,53 @@
-<div class="login-page" [@routerTransition]>
-    <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
-            <h1>SB Admin BS4 Angular5</h1>
-            <form role="form">
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Full Name">
-                    </div>
+<section class="login-register" [ngStyle]="{ 'background-image': 'url(' + imagen[0].url + ')'}">
+    <div class="login-page" [@routerTransition]>
+        <div class="row justify-content-md-center">
+            <div class="col-md-4">
+                <form role="form" [formGroup]="forma">
+                    <div class="form-content">
+                        <div class="form-group">
+                            <input type="text" class="form-control input-underline input-lg" placeholder="Full Name" formControlName="nombre">
 
-                    <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Email">
-                    </div>
+                            <div *ngIf="forma.get('nombre').hasError('required') && !forma.pristine" class="form-control-feedback">
+                                <small id="emailHelp" class="form-text text-muted">
+                                        <div class="text-danger">
+                                                El nombre es obligatorio
+                                        </div>
+                                    </small>
+                            </div>
 
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control input-underline input-lg" placeholder="Email" formControlName="email">
+
+                            <div *ngIf="forma.get('email').errors && !forma.pristine" class="form-control-feedback">
+                                <small id="emailHelp" class="form-text text-muted">
+                                        <div class="text-danger">
+                                                Digite un correo Valido
+                                        </div>
+                                    </small>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control input-underline input-lg" placeholder="Password" formControlName="pwd1">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control input-underline input-lg" placeholder="Repeat Password" formControlName="pwd2">
+                        </div>
+
+                        <div class="form-group" *ngIf="forma['errors']?.sonIguales && !forma.pristine">
+                            <div class="text-danger">
+                                Las contraseñas no son iguales
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Repeat Password">
-                    </div>
-                </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']"> Register </a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
-            </form>
+                    <a class="btn rounded-btn" (click)="singIn()"> Register </a>&nbsp;
+                    <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</section>
